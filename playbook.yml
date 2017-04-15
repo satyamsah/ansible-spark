@@ -1,0 +1,88 @@
+---
+ - hosts: localhost1
+   become: yes
+   
+   tasks:
+     - name: install pip
+       apt: name=python-pip state=latest
+
+     - name: upgrade pip
+       command: pip install --upgrade pip
+
+     - name: install dependency for cloudmesh_client
+       apt: name={{item}} state=latest
+       with_items:
+         - build-essential
+         - libffi-dev
+         - libssl-dev
+         - python-dev
+
+     - name: install virtual env
+       pip: name=virtualenv state=present
+
+     - name: install venvwrapper
+       pip: name=virtualenvwrapper state=latest
+
+     - name: install cryptography
+       pip: name=cryptography
+
+     - name: python dependencies for cloudmesh
+       action: pip name={{item}} state=present
+       with_items:
+         - httplib2
+
+     - name: Check that the somefile.conf exists
+       stat: path=/home/devops/.cloudmesh/
+       register: cloudmesh_exists
+
+     - name: Install cloudmesh folder if .cloudmesh_client folder does not exists
+       sudo: true
+       command: pip install -U cloudmesh_client
+       when: cloudmesh_exists.stat.exists == False
+
+     - name: Upgrade cloudmesh
+       sudo: true
+       shell: |
+         cm reset
+         pip uninstall cloudmesh_client
+         pip install -U cloudmesh_client
+         #cm refresh on
+       when: cloudmesh_exists.stat.exists == True
+
+     - name: Preparing cloudmesh
+       shell: cm default cloud=chameleon
+         
+
+     - name: Preparing cloudmesh
+       shell: cm default user=satyam
+
+
+     - name: Preparing cloudmesh
+       shell: cm register profile
+
+     - name: Check that the somefile.conf exists
+       stat: path=/home/devops/.ssh/id_rsa.pub
+       register: ssh_exists
+    
+     - name: Generates SSH keys if they do not exist
+       shell: ssh-keygen -b 2048 -t rsa -f /home/devops/.ssh/id_rsa -q -N ""
+       args:
+         creates: /home/devops/.ssh/id_rsa
+       when: ssh_exists.stat.exists == False
+
+     - name: SSH key already exists
+       shell: |
+         cm key add --ssh
+         cm key upload
+         cm secgroup upload
+         cm secgroup list
+
+     #- name: deploy hadoop
+       
+         
+        
+  
+
+
+       
+       

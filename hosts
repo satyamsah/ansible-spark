@@ -1,0 +1,2 @@
+[localhost1]
+10.0.2.15 ansible_ssh_user=ubuntu524 ansible_connection=local
