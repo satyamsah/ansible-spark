@@ -42,7 +42,7 @@ default:
 
 4. Now run the following command to deploy hadoop/spark cluster which will run the hadoop-spark-playbook.yml. It will again upgrade cloudmesh client, so that we are up to date with any changes:
 
-ansible-playbook  hadoop-playbook.yml --ask-sudo-pass -vvvv
+ansible-playbook  hadoop-spark-playbook.yml --ask-sudo-pass -vvvv
 
 
 
