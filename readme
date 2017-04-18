@@ -10,11 +10,11 @@ profile:
      email: <email id>
      user: <chameleon/jetsream/other cloud username>
 
-2.2. Change the entry of active cloud to use your favorite cloud,for example chamelon show here:
+2.2. Change the entry of active cloud to use your favorite cloud,for example chamelon shown here:
 
 
     active:
-      - chameleon # <change here, dont type parts after and including #>
+      - chameleon
     clouds:
       ...
 
