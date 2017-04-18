@@ -1,0 +1,50 @@
+1. Edit the hosts file to 
+
+1. To install cloudmesh client for the first run playbook-cloudmesh-first time install.yml with following command:
+
+ansible-playbook playbook-cloudmesh-first-time-install.yml --ask-sudo-pass -vvvv
+
+2.1 After doing step 1, Open, ~/.cloudmesh/cloudmesh.yaml and edit the following section,the entry with < > should be customized as per your credentials:
+
+profile:
+     firstname: <first name>
+     lastname: <last name>
+     email: <email id>
+     user: <chameleon/jetsream/other cloud username>
+
+2.2. Change the entry of active cloud to use your favorite cloud,for example chamelon show here:
+
+
+    active:
+      - chameleon # <change here, dont type parts after and including #>
+    clouds:
+      ...
+
+2.3.Under your favourite cloud(chameleon/jestream/..) change the following entry, the entry with < > should be customized as per your credentials:
+
+credentials:
+OS_PASSWORD: <enter your chameleon cloud password here>
+OS_TENANT_NAME: CH-818664
+OS_TENANT_ID: CH-818664
+OS_PROJECT_NAME: CH-818664
+OS_USERNAME: <username>
+
+
+2.4. Also change, the type of OS and flavor you want for hadoop/spark cluster(recommended):
+
+default:
+        flavor: m1.medium
+        image: CC-Ubuntu14.04
+
+
+3. Now run the following command to deploy hadoop/spark cluster. Keep in mind , it will again upgrade cloudmesh client, so that we are up to date with any changes:
+
+ansible-playbook  hadoop-playbook.yml --ask-sudo-pass -vvvv
+
+
+
+
+
+
+
+

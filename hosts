@@ -1,0 +1,5 @@
+[mylocalhost]
+10.0.2.15 ansible_ssh_user=<localhost-username> ansible_connection=local
+
+[remotehosts]
+<IP address> ansible_ssh_user=cc
