@@ -75,3 +75,6 @@
      - name: fresh install
        pip: name=cloudmesh_client state=latest
        when: cloudmesh_installed.stat.exists == false
+
+     - name: cm command
+       shell: cm
